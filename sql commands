@@ -1,0 +1,263 @@
+Localhost/phpmyadmin
+Practical For SQL
+SQL Commands Guide for Students
+Learning SQL (Structured Query Language) 
+1. Database Creation
+CREATE DATABASE - Creates a new database
+CREATE DATABASE school;
+2 Use 
+Use d_name;
+2. Table Operations
+CREATE TABLE - Creates a new table
+CREATE TABLE xyz(
+    student_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    age INT,
+    grade DECIMAL(3,2),
+    enrollment_date DATE
+);
+3.ALTER TABLE - Modifies an existing table
+-- Add a column
+ALTER TABLE students ADD email VARCHAR(100);
+-- Modify a column
+ALTER TABLE students MODIFY COLUMN grade DECIMAL(4,2);
+-- Drop a column
+ALTER TABLE students DROP COLUMN enrollment_date;
+ALTER TABLE - RENAME COLUMN
+
+4.DROP TABLE - Deletes a table
+DROP TABLE students;
+5. Truncate
+--remove all rows from the students table, but the table structure and columns remain intact.
+TRUNCATE TABLE students;
+6. Rename a table
+RENAME TABLE old_table_name TO new_table_name;
+RENAME TABLE students  to student
+
+ALTER TABLE - RENAME COLUMN
+ALTER TABLE table_name
+RENAME COLUMN old_name to new_name;
+
+ 
+
+#Data Manipulation
+1.INSERT - Adds new records
+INSERT INTO students (student_id, first_name, last_name, age, grade)
+VALUES (1, 'John', 'Doe', 18, 3.75);
+-- Insert multiple records
+INSERT INTO students VALUES
+(2, 'Jane', 'Smith', 19, 3.90),
+(3, 'Mike', 'Johnson', 20, 3.45);
+2.SELECT - Retrieves data
+ Select all columns
+SELECT * FROM students;
+-- Select specific columns
+SELECT first_name, last_name, grade FROM students;
+-- Select with condition
+SELECT * FROM students WHERE grade > 3.5;
+-- Select with sorting
+SELECT * FROM students ORDER BY grade DESC;
+-- Select with limit
+SELECT * FROM students LIMIT 2;
+3.UPDATE - Modifies existing records
+UPDATE students 
+SET grade = 4.0 
+WHERE student_id = 1;
+
+4.DELETE - Removes records
+DELETE FROM students 
+WHERE student_id = 3;
+
+# Query Clauses
+WHERE - Filters records
+SELECT * FROM students WHERE age >= 19;
+ORDER BY - Sorts results
+SELECT * FROM students ORDER BY last_name ASC;
+GROUP BY - Groups rows
+SELECT age, COUNT(*) 
+FROM students 
+GROUP BY age;
+HAVING - Filters groups
+SELECT age, AVG(grade) 
+FROM students 
+GROUP BY age 
+HAVING AVG(grade) > 3.5;
+
+ 
+SQL JOINS
+Table : Students
+student_id	name	age	address
+1	Ram	15	Kathmandu
+2	Sita	16	Pokhara
+3	Hari	14	Lalitpur
+4	Gita	15	Bhaktapur
+			
+Inner Join 
+SELECT students.name, students.age, students.address, class.class, class.subject
+FROM students
+INNER JOIN class
+ON students.student_id = class.student_id;
+Right Join
+SELECT students.name, students.age, students.address, classes.class, classes.subject
+FROM students
+RIGHT JOIN classes
+ON students.student_id = classes.student_id;
+Left Join
+SELECT students.name, students.age, students.address, classes.class, classes.subject
+FROM students
+LEFT JOIN classes
+ON students.student_id = classes.student_id;
+ 
+Full JOin
+SELECT students.name, students.age, students.address, classes.class, classes.subject
+FROM students
+LEFT JOIN classes
+ON students.student_id = classes.student_id
+UNION
+SELECT students.name, students.age, students.address, classes.class, classes.subject
+FROM students
+RIGHT JOIN classes
+ON students.student_id = classes.student_id; 
+
+Practice Exercise
+Write SQL commands for the following:
+Create a database called "university"
+Create tables for students, courses,  GPA and enrollments
+Insert sample data
+Write queries to:
+Find all students with GPA > 3.5
+List students enrolled in "Computer Science" courses
+
+Calculate average GPA by department
+SQL Commands for University Database
+1. Create Database
+sql
+CREATE DATABASE university;
+USE university;
+2. Create Tables
+Students Table
+sql
+CREATE TABLE students (
+    student_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    age INT,
+    gpa DECIMAL(3,2),
+    department VARCHAR(50),
+    enrollment_date DATE
+);
+Courses Table
+sql
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY AUTO_INCREMENT,
+    course_name VARCHAR(100) NOT NULL,
+    department VARCHAR(50) NOT NULL,
+    credit_hours INT DEFAULT 3,
+    professor VARCHAR(100)
+);
+Enrollments Table
+sql
+CREATE TABLE enrollments (
+    enrollment_id INT PRIMARY KEY AUTO_INCREMENT,
+    student_id INT,
+    course_id INT,
+    enrollment_date DATE,
+    semester VARCHAR(20),
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+3. Insert Sample Data
+Insert into Students
+sql
+INSERT INTO students (first_name, last_name, age, gpa, department, enrollment_date) VALUES
+('John', 'Doe', 20, 3.75, 'Computer Science', '2022-09-01'),
+('Jane', 'Smith', 21, 3.90, 'Computer Science', '2022-09-01'),
+('Mike', 'Johnson', 19, 3.45, 'Mathematics', '2023-01-15'),
+('Sarah', 'Williams', 22, 3.80, 'Physics', '2021-09-01'),
+('David', 'Brown', 20, 3.20, 'Mathematics', '2023-01-15'),
+('Emily', 'Davis', 21, 4.00, 'Computer Science', '2022-09-01');
+Insert into Courses
+sql
+INSERT INTO courses (course_name, department, credit_hours, professor) VALUES
+('Introduction to Programming', 'Computer Science', 4, 'Dr. Smith'),
+('Data Structures', 'Computer Science', 4, 'Dr. Johnson'),
+('Calculus I', 'Mathematics', 3, 'Dr. Williams'),
+('Quantum Physics', 'Physics', 4, 'Dr. Brown'),
+('Database Systems', 'Computer Science', 3, 'Dr. Davis'),
+('Linear Algebra', 'Mathematics', 3, 'Dr. Miller');
+Insert into Enrollments
+sql
+INSERT INTO enrollments (student_id, course_id, enrollment_date, semester) VALUES
+(1, 1, '2022-09-01', 'Fall 2022'),
+(1, 2, '2023-01-15', 'Spring 2023'),
+(2, 1, '2022-09-01', 'Fall 2022'),
+(2, 5, '2023-01-15', 'Spring 2023'),
+(3, 3, '2023-01-15', 'Spring 2023'),
+(4, 4, '2022-09-01', 'Fall 2022'),
+(5, 3, '2023-01-15', 'Spring 2023'),
+(5, 6, '2023-01-15', 'Spring 2023'),
+(6, 1, '2022-09-01', 'Fall 2022'),
+(6, 2, '2023-01-15', 'Spring 2023'),
+(6, 5, '2023-01-15', 'Spring 2023');
+4. Requested Queries
+Find all students with GPA > 3.5
+sql
+SELECT student_id, first_name, last_name, gpa
+FROM students
+WHERE gpa > 3.5
+ORDER BY gpa DESC;
+Count students in each age group
+sql
+SELECT 
+    CASE 
+        WHEN age < 20 THEN 'Under 20'
+        WHEN age BETWEEN 20 AND 21 THEN '20-21'
+        ELSE '22 and over'
+    END AS age_group,
+    COUNT(*) AS student_count
+FROM students
+GROUP BY age_group
+ORDER BY age_group;
+List students enrolled in "Computer Science" courses
+sql
+SELECT DISTINCT s.student_id, s.first_name, s.last_name
+FROM students s
+JOIN enrollments e ON s.student_id = e.student_id
+JOIN courses c ON e.course_id = c.course_id
+WHERE c.department = 'Computer Science'
+ORDER BY s.last_name, s.first_name;
+Calculate average GPA by department
+sql
+SELECT 
+    department,
+    ROUND(AVG(gpa), 2) AS average_gpa,
+    COUNT(*) AS student_count
+FROM students
+GROUP BY department
+ORDER BY average_gpa DESC;
+Bonus Query: List all Computer Science courses with enrolled students
+sql
+SELECT 
+    c.course_name,
+    s.first_name,
+    s.last_name,
+    s.gpa
+FROM courses c
+JOIN enrollments e ON c.course_id = e.course_id
+JOIN students s ON e.student_id = s.student_id
+WHERE c.department = 'Computer Science'
+ORDER BY c.course_name, s.last_name;
+ 
+1.	Create a database NHC
+2.	Create two tables:
+o	Students (StudentID, Name, Age, Address)
+o	Classes (ClassID, ClassName, Teacher)
+3.	Insert at least 3 records in each table.
+4.	Alter the Students table to add a new column Contact (VARCHAR(15)).
+5.	Update the contact number of one student.
+6.	Delete one student record from the Students table.
+7.	Create a third table Enrollments (EnrollmentID, StudentID, ClassID)
+8.	Insert at least 2 enrollment records.
+9.	Write a query to display student names, their class names, and class teachers using JOIN.
+
