@@ -1,4 +1,93 @@
-SQL LIKE Clause
+Localhost/phpmyadmin
+Practical For SQL
+https://github.com/bijaypra7/sql
+SQL Commands Guide for Students
+Learning SQL (Structured Query Language) 
+1. Database Creation
+CREATE DATABASE - Creates a new database
+CREATE DATABASE school;
+2 Use 
+Use d_name;
+2. Table Operations
+CREATE TABLE - Creates a new table
+CREATE TABLE xyz(
+    student_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    age INT,
+    grade DECIMAL(3,2),
+    enrollment_date DATE
+);
+3.ALTER TABLE - Modifies an existing table
+-- Add a column
+ALTER TABLE students ADD email VARCHAR(100);
+-- Modify a column
+ALTER TABLE students MODIFY COLUMN grade DECIMAL(4,2);
+-- Drop a column
+ALTER TABLE students DROP COLUMN enrollment_date;
+-ALTER TABLE - RENAME COLUMN
+ALTER TABLE students 
+CHANGE STUDENTS STUDENT_NAME  VARCHAR(20);
+4.DROP TABLE - Deletes a table
+DROP TABLE students;
+5. Truncate
+--remove all rows from the students table, but the table structure and columns remain intact.
+TRUNCATE TABLE students;
+6. Rename a table
+RENAME TABLE old_table_name TO new_table_name;
+RENAME TABLE students  to student
+
+ALTER TABLE - RENAME COLUMN
+ALTER TABLE table_name
+RENAME COLUMN old_name  new_name data_type;
+
+ 
+
+#Data Manipulation
+1.INSERT - Adds new records
+INSERT INTO students (student_id, first_name, last_name, age, grade)
+VALUES (1, 'John', 'Doe', 18, 3.75);
+-- Insert multiple records
+INSERT INTO students VALUES
+(2, 'Jane', 'Smith', 19, 3.90),
+(3, 'Mike', 'Johnson', 20, 3.45);
+2.SELECT - Retrieves data
+ Select all columns
+SELECT * FROM students;
+-- Select specific columns
+SELECT first_name, last_name, grade FROM students;
+-- Select with condition
+SELECT * FROM students WHERE grade > 3.5;
+-- Select with sorting
+SELECT * FROM students ORDER BY grade DESC;
+-- Select with limit
+SELECT * FROM students LIMIT 2;
+3.UPDATE - Modifies existing records
+UPDATE students 
+SET grade = 4.0 
+WHERE student_id = 1;
+
+4.DELETE - Removes records
+DELETE FROM students 
+WHERE student_id = 3;
+
+ 
+# Query Clauses
+1.WHERE - Filters records
+SELECT * FROM students WHERE age >= 19;
+2.ORDER BY - Sorts results
+SELECT * FROM students ORDER BY last_name ASC;
+3.GROUP BY - Groups rows
+SELECT age, COUNT(*) 
+FROM students 
+GROUP BY age;
+4.HAVING - Filters groups
+SELECT age, AVG(grade) 
+FROM students 
+GROUP BY age 
+HAVING AVG(grade) > 3.5;
+
+5.SQL LIKE Clause
 The LIKE clause is used in a WHERE condition to search for a specified pattern in a column.
 
 Syntax
@@ -11,32 +100,26 @@ Wildcard	Meaning
 _	Exactly one character
 Examples
 Names starting with 'A'
-SELECT *
-FROM Employees
+SELECT * FROM Employees
 WHERE Name LIKE 'A%';
 Matches: Alice, Andrew, A
 Names ending with 'son'
-SELECT *
-FROM Employees
+SELECT * FROM Employees
 WHERE Name LIKE '%son';
 Matches: Johnson, Wilson
 Names containing 'an'
-SELECT *
-FROM Employees
+SELECT * FROM Employees
 WHERE Name LIKE '%an%';
 Matches: Andrew, Diana, Ankit
 Names with exactly 5 characters
-SELECT *
-FROM Employees
+SELECT * FROM Employees
 WHERE Name LIKE '_____';
 Matches: Alice, James
 Second letter is 'a'
-SELECT *
-FROM Employees
+SELECT * FROM Employees
 WHERE Name LIKE '_a%';
 Matches: Mark, David, Sam
 NOT LIKE
-SELECT *
-FROM Employees
+SELECT * FROM Employees
 WHERE Name NOT LIKE 'A%';
 Returns all employees whose names do not start with A.
