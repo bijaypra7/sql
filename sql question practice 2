@@ -1,0 +1,16 @@
+a.Write an SQL query to create a new database named CompanyData. 
+b.Write an SQL query to create a table named Employees with the 
+following columns:- - - 
+  EmployeeID as an integer (INT) and the primary key.
+  FirstName as a variable-length string (VARCHAR) with a maximum length of 50 characters.
+  LastName as a variable-length string (VARCHAR) with a maximum length of 50 characters.
+  Salary as a decimal number (DECIMAL) with a total of 10 digits and 2 digits after the decimal point.
+c.Write an SQL query to add a new column named Email to the Employees table. The data type for this column should be a variable-length string (VARCHAR) with a maximum length of 100 characters.
+d.Write an SQL query to modify the Salary column in the Employees table to have a default value of 25000.
+e.Write an SQL query to rename the Employees table to StaffMembers. 
+f.Write an SQL query to insert a new record into the StaffMembers table with the following values: [ EmployeeID : 101, FirstName : Sampada, lastName : Bhattrai, Salary : 30000.50 ] 
+g.Write an SQL query to retrieve all columns and all rows from the table.
+h.Write an SQL query to retrieve only the FirstName and Salary columns from the Employees table. 
+i.Write an SQL query to increase the salary of all employees by 10%.
+j.Write an SQL query to delete the employee with EmployeeID 103 from the table. 
+k.Write an SQL query to delete all records from the Employees table (or StaffMembers), but keep the table structure intact
